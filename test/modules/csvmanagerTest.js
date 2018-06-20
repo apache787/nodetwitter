@@ -29,7 +29,7 @@ describe('csvManagerTest', function() {
       assert.equal(csvmanager.saveCSV(fileName,-1), null);
     });
     it('Should return null when given null', function() {
-      assert.equal(csvmanager.saveCSV(null,null), null);
+      assert.equal(csvmanager.saveCSV(null), null);
     });
   });
   describe('appendCSV()', function() {

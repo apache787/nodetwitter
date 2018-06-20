@@ -13,7 +13,7 @@ describe('Twitter Call And Save To CSV', function() {
         if(error) done(error)
         else if (tweets){;
           var extracted = twitter.extractTweets(tweets);
-          var location = csvManager.saveCSV(extracted,fileName);
+          var location = csvManager.saveCSV(fileName,extracted);
           console.log('Saved '+tweets['statuses'].length+' Tweets to: '+location);
           done();
         }
@@ -29,7 +29,7 @@ describe('Twitter Call And Save To CSV', function() {
           if(error) done(error)
           else if ('statuses' in tweets){;
             var extracted = twitter.extractTweets(tweets);
-            fileName = csvManager.saveCSV(extracted,fileName);
+            fileName = csvManager.saveCSV(fileName,extracted);
             var found = tweets['statuses'].length;
             console.log('Saved '+found+' Tweets to: '+fileName);
             searchForMore(tweets['statuses'][found-1]['id_str'],keyword, max-found,fileName,function(error){
@@ -52,7 +52,7 @@ function searchForMore(next,keyword,countRemaining,fileName,callback){
       console.log('Saved '+found+' Tweets to: '+fileName);
       if(found < countRemaining){
         var foundNext = tweets['search_metadata']['next_results'];
-        searchForMore(tweets['statuses'][found-1]['id_str'],keyword,(countRemaining-found),callback);
+        searchForMore(tweets['statuses'][found-1]['id_str'],keyword,(countRemaining-found),fileName,callback);
       } else {
         callback();
       }
