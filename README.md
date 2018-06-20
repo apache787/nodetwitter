@@ -20,16 +20,16 @@ Mocha - Used for Unit Testing - https://mochajs.org/
 Download git package
 
 ```
-until finished
+git clone https://github.com/apache787/nodetwitter.git
 ```
 
-Install Mocha
+Install Mocha while in git directory
 
 ```
 $ npm install --save-dev mocha
 ```
 
-How to start Server
+How to start Server while in git director
 
 ```
 $ node twitteriot.js
@@ -43,7 +43,7 @@ http://localhost:8080/
 
 ## Running the tests
 
-Running tests from the main git folder
+Running tests from the git directory
 
 
 ```
