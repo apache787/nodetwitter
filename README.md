@@ -29,7 +29,17 @@ Install Mocha while in git directory
 $ npm install --save-dev mocha
 ```
 
-How to start Server while in git director
+Add your apps.twitter.com consumer keys in ./modules/twitterKeys.js in your favorite editor of choice
+
+```
+change ACCESS_TOKEN to your Consumer Key (API Key)
+change ACCESS_TOKEN_SECRET to your Consumer Secret (API Secret)
+
+var token = "ACCESS_TOKEN";
+var secret = "ACCESS_TOKEN_SECRET";
+```
+
+How to start Server while in git directory
 
 ```
 $ node twitteriot.js
