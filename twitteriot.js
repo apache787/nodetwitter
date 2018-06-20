@@ -60,7 +60,7 @@ http.createServer(function (request, response) {
           if(jsonData.requestID && jsonData.keyword && jsonData.count && jsonData.includeRT){
             console.log('keyword:'+jsonData.keyword+', count:'+jsonData.count+', RT:'+jsonData.includeRT);
             //Check if we need to filter out ReTweets
-            var query = jsonData.keyword + (jsonData.includeRT ? '%20-filter:retweets':'');
+            var query = jsonData.keyword + (jsonData.includeRT == 'false' ? '%20-filter:retweets':'');
             //Create a filename that is a combination of the date and the pseudorandomly generated requestID
             var fileName = new Date() + jsonData.requestID + '.csv';
             search(query,jsonData.count,fileName,function(error,fileName){
