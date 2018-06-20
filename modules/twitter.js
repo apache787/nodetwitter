@@ -31,6 +31,9 @@ var bearerStore = null;
 exports.findTweets = function(keyword, max, callback){
   this.fetchAuthToken(function(bearer){
     var count = (max > 100 ? 100 : max); //Twitter's API allows max 100 items
+    if(count < 3){
+      count = 3; //Twitter's API seems to have a minimum of 3 in order to search
+    }
     var options = {
       host: requestAPI['host'],
       path: requestAPI['path']+'?count='+count+'&q=?'+keyword+'&include_entities=1',
@@ -47,10 +50,12 @@ exports.findTweets = function(keyword, max, callback){
         rawData += chunk;
       });
       response.on('end', function(){
+
         var json = JSON.parse(rawData);
         if(json['statuses'].length > 0){
           callback(null,json);
         } else {
+
           var error = 'No tweets retreived';
           callback(error,json);
         }
@@ -75,6 +80,9 @@ exports.findTweets = function(keyword, max, callback){
 */
 exports.findTweetsAfter = function(from,keyword,max,callback){
   var count = (max > 100 ? 100 : max); //Twitter's API allows max 100 items
+  if(count < 3){
+    count = 3; //Twitter's API seems to have a minimum of 3 in order to search
+  }
   this.fetchAuthToken(function(bearer){
     var options = {
       host: requestAPI['host'],

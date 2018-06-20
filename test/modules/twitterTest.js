@@ -28,9 +28,18 @@ describe('twitterTests', function() {
       });
     });
   });
-  describe('findTweetsUsingNext(string,max,callback)', function() {
+  describe('findTweetsAfter(string,max,callback)', function() {
     it('should return a json object of tweets with a key called "statuses"', function(done) {
       twitter.findTweetsAfter('1008860206615416831','%3F%23IOT',100,function(error,tweets){
+        if(error) done(error);
+        else if (typeof tweets == 'object' && 'statuses' in tweets){ done();}
+        else done("Tweets were not found");
+      });
+    });
+  });
+  describe('findTweetsAfter(string,max,callback)', function() {
+    it('should return a json object with up to 3 tweets with a key called "statuses"', function(done) {
+      twitter.findTweetsAfter('1008860206615416831','%3F%23IOT',1,function(error,tweets){
         if(error) done(error);
         else if (typeof tweets == 'object' && 'statuses' in tweets){ done();}
         else done("Tweets were not found");

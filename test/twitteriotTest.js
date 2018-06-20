@@ -5,7 +5,7 @@ var twitter = require('../modules/twitter');
 
 describe('Twitter Call And Save To CSV', function() {
   this.timeout(20000);
-  describe('save100()', function() {
+  describe('findTweets(keyword,count,callback)', function() {
     it('Should generate a search request and save to a file', function(done) {
       var fileName = "Save100.csv";
       twitter.findTweets('#IOT',100,function(error,tweets){

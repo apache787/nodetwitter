@@ -137,12 +137,29 @@ function serveJson(request, callback){
 */
 function search(keyword,count,fileName,callback){
   twitter.findTweets(keyword,count,function(error,tweets){
-    if(error) done(error)
+    if(error) callback(error,null)
     else if ('statuses' in tweets){ //Indicates if there are tweets to sort
       var extracted = twitter.extractTweets(tweets);
+      if(count < tweets['statuses'].length){ //We received too many
+        //This is used to reduce the amount of tweets being saved to the csv
+        //This is required since the minimum tweets to search for is 3
+        var modJson = JSON.parse(extracted);
+        var array = [{}];
+        for(var i = 0; i < count; i++){
+          console.log('found '+(tweets['statuses'].length - count)+' too many');
+          array[i] = {
+            "id" : '"'+modJson[i].id+'"',
+            "text" : '"'+modJson[i].text+'"',
+            "user_id" : '"'+modJson[i].user_id+'"',
+            "user_name" : '"'+modJson[i].user_name+'"',
+            "user_screen_name" : '"'+modJson[i].user_screen_name+'"'
+          };
+        }
+        extracted = JSON.stringify(array);
+      }
       csvManager.saveCSV(fileName,extracted); //Save to file
       var found = tweets['statuses'].length;
-      console.log('Saved '+found+' Tweets to: '+fileName);
+      console.log('Found '+found+' Tweets');
       if(found!= 0 && found < count){ //if we found nothing, we reached the end
         searchForMore(tweets['statuses'][found-1]['id_str'],keyword, count-found,fileName,function(error,fileName){
           if(error) callback(error,fileName)
@@ -168,6 +185,22 @@ function searchForMore(next,keyword,countRemaining,fileName,callback){
   twitter.findTweetsAfter(next,keyword,countRemaining,function(error,tweets){
     if (error == null && 'statuses' in tweets){ //Indicates if there are tweets to sort
       var extracted = twitter.extractTweets(tweets);
+      if(countRemaining < tweets['statuses'].length){ //We received too many
+        //This is used to reduce the amount of tweets being saved to the csv
+        //This is required since the minimum tweets to search for is 3
+        var modJson = JSON.parse(extracted);
+        var array = [{}];
+        for(var i = 0; i < countRemaining; i++){
+          array[i] = {
+            "id" : '"'+modJson[i].id+'"',
+            "text" : '"'+modJson[i].text+'"',
+            "user_id" : '"'+modJson[i].user_id+'"',
+            "user_name" : '"'+modJson[i].user_name+'"',
+            "user_screen_name" : '"'+modJson[i].user_screen_name+'"'
+          };
+        }
+        extracted = JSON.stringify(array);
+      }
       csvManager.appendCSV(fileName,extracted);
       var found = tweets['statuses'].length;
       console.log('Saved '+found+' Tweets to: '+fileName);
