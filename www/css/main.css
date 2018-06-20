@@ -1,0 +1,20 @@
+/*
+ * I was going to more on the HTML CSS side, but PureCSS takes care of most
+ * basic cross-broser quirks and I discovered time traveled reading the
+ * Twitter API docs :)
+ */
+
+.padded p{
+  padding-left: 5px;
+}
+.padded h3{
+  padding-left: 5px;
+}
+
+.dark{
+  background-color: #333;
+  color: #fff;
+}
+.dark a{
+  color: #ffd700;
+}

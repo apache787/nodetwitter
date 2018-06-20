@@ -1,0 +1,17 @@
+{
+  "name": "nodetwitter",
+  "version": "1.0.0",
+  "description": "Gather 2000 unique tweets with the hashtag #IOT and output them to a CSV file",
+  "main": "twitteriot.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Keith Blackard",
+  "license": "ISC",
+  "devDependencies": {
+    "mocha": "^5.2.0"
+  }
+}
