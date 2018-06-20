@@ -7,10 +7,10 @@
 function generateRequest(keyword,count,includeRT){
   //This is used to generate a unique id by user's browser and current time
   var id = (navigator.userAgent+Math.random()+new Date().getMilliseconds()).hashCode();
-  $('#console').append('<p>Launching request '+id+' for <br />**Keyword: '+keyword+'<br />**Total: '+count+'<br />**Include Retweets?: '+keyword+'</p>');
+  $('#console').append('<p>Launching request '+id+' for <br />**Keyword: '+keyword+'<br />**Total: '+count+'<br />**Include Retweets?: '+(includeRT == true ? 'yes' : 'no') +'</p>');
   jQuery.ajax({
     url: '/getTweets.json',
-    data: '{"requestID" : "'+id+'","keyword" : "'+keyword+'","count" : "'+count+'","includeRT" : "'+keyword+'"}',
+    data: '{"requestID" : "'+id+'","keyword" : "'+keyword+'","count" : "'+count+'","includeRT" : "'+includeRT+'"}',
     dataType: "json",
     method: "POST",
     success: handleResponse
